@@ -13,5 +13,8 @@ check: sdist
 upload: sdist
 	twine upload dist/*
 
+install:
+	ln -s $(PWD)/agmonsynchrony $(HOME)/python
+
 clean:
 	rm -rf build dist *.egg-info
