@@ -46,3 +46,22 @@ def test_multiple_tau():
     SI, p, Nc = synchrony_index(T, tau_list)
     shape = len(T), len(T), len(tau_list)
     assert SI.shape == shape and p.shape == shape and Nc.shape == shape
+
+def test_negative_tau():
+    tau = np.array([-0.01, -0.02, -0.03])
+    SI, p, Nc = synchrony_index(T, tau[2])
+    assert np.isclose(SI[0, 1], 0.23)
+    assert np.isclose(SI[2, 3], 0.47)
+
+def test_multiple_negative_tau():
+    tau = np.array([-0.01, -0.02, -0.03])
+    SI, p, Nc = synchrony_index(T, tau)
+    assert np.isclose(SI[0, 1, 2], 0.23)
+    assert np.isclose(SI[2, 3, 2], 0.47)
+
+def test_tau_zero():
+    tau = np.array([-0.01, 0.02, 0])
+    SI, p, Nc = synchrony_index(T, tau)
+    assert np.all(SI[:, :, 2] == np.identity(len(T)))
+    SI, p, Nc = synchrony_index(T, 0)
+    assert np.all(SI == np.identity(len(T)))
