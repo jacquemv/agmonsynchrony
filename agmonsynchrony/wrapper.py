@@ -3,7 +3,7 @@ from .synchrony import (synchrony_index_matrix,
                         synchrony_index_matrix_multiple_tau)
 
 #------------------------------------------------------------------------------
-def synchrony_index(timeseries, tau, Nc_max_exact=1000):
+def synchrony_index(timeseries, tau, bilateral=True, Nc_max_exact=1000):
     """Compute the jitter-based synchrony index based on Agmon's paper:
     https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3423071/
 
@@ -34,13 +34,21 @@ def synchrony_index(timeseries, tau, Nc_max_exact=1000):
     timeseries = [to_array(ts) for ts in timeseries]
     if hasattr(tau, '__iter__'): # tuple, list or array
         tau_s = to_array(tau)
-        tau_j = 2 * tau_s
+        if bilateral:
+            tau_s = np.abs(tau_s)
+            tau_j = 2 * tau_s
+        else:
+            tau_j = np.abs(tau_s)
         return synchrony_index_matrix_multiple_tau(
-            timeseries, tau_s, tau_j, N_exact=Nc_max_exact
+            timeseries, tau_s, tau_j, bilateral, N_exact=Nc_max_exact
         )
     else:
         tau_s = float(tau)
-        tau_j = 2 * tau_s
+        if bilateral:
+            tau_s = abs(tau_s)
+            tau_j = 2 * tau_s
+        else:
+            tau_j = abs(tau_s)
         return synchrony_index_matrix(
-            timeseries, tau_s, tau_j, N_exact=Nc_max_exact
+            timeseries, tau_s, tau_j, bilateral, N_exact=Nc_max_exact
         )

@@ -1,18 +1,31 @@
-    
-int time_windows_c(double* x, int n, double tau, double* interv)
+#include <math.h>
+
+int time_windows_c(double* x, int n, double tau, int bilateral, double* interv)
 {
     int i;
     if (n==0) return 0;
-    interv[2*0] = x[0]-tau;
-    interv[2*0+1] = x[0]+tau;
+    double tau1, tau2;
+    if (bilateral) {
+        tau1 = tau2 = fabs(tau);
+    } else {
+        if (tau < 0) {
+            tau1 = -tau;
+            tau2 = 0;
+        } else {
+            tau1 = 0;
+            tau2 = tau;
+        }
+    }
+    interv[2*0] = x[0]-tau1;
+    interv[2*0+1] = x[0]+tau2;
     int na = 1;
     for (i=1;i<n;i++) {
-        if (interv[2*(na-1)+1]<x[i]-tau) {
-            interv[2*na] = x[i]-tau;
-            interv[2*na+1] = x[i]+tau;
+        if (interv[2*(na-1)+1]<x[i]-tau1) {
+            interv[2*na] = x[i]-tau1;
+            interv[2*na+1] = x[i]+tau2;
             na++;
         } else {
-            interv[2*(na-1)+1] = x[i]+tau;
+            interv[2*(na-1)+1] = x[i]+tau2;
         }
     }
     return na;
