@@ -1,2 +1,2 @@
-graft evenlyspacedstreamlines
+graft agmonsynchrony
 global-exclude *.py[cod] *.so
