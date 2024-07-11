@@ -46,6 +46,14 @@ The matrix of synchrony indices is:
 ```
 The diagonal is 1 because time series are synchronized with themselves. The lower left value is 0.5 because when the time series 'ts2' is taken as a reference, only half of the samples of the time series 'ts1' are within 'tau' of a sample of 'ts2'. Therefore, the matrix is not symmetric.
 
+### Installation
+
+The package can be installed using the command ``pip install agmonsynchrony`` (on Windows, a compiler such as Microsoft Visual C++ is required).
+
+If the code is downloaded from github, local installation on Linux is done by running ``make local`` and including the directory 'agmonsynchrony' in the PYTHONPATH environment variable.
+
+Tested using Anaconda 2023.09 (python 3.11) on Linux and Windows.
+
 
 ### Acknowledgements
 
