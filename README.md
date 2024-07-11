@@ -13,6 +13,7 @@ SI, pval, Nc = synchrony_index(timeseries, tau, Nc_max_exact=1000)
 
 - **timeseries** (list or tuple of arrays): a list of two or more time series. Each time series is a sorted array of time instants.
 - **tau** (float or array): maximum delay between events of different time series for the identification of coincidences. The width of the jitter window used for computing the expected number of coincidences is set to 2*tau. If tau is an array, all values are used consecutively
+- **window** (str): if window is 'bilateral' (default), the original Agmon's method is applied; if window is 'unilateral', only coindidences occurring after (when tau > 0) or before (when tau < 0) the events of the reference time series are considered.
 - **Nc_max_exact** (int): number of coincidences above which a normal approximation (Z score) is used for computing the p-values (default: 1000, which is generally appropriate)
 
 ### Outputs
@@ -45,6 +46,11 @@ The matrix of synchrony indices is:
 ```
 The diagonal is 1 because time series are synchronized with themselves. The lower left value is 0.5 because when the time series 'ts2' is taken as a reference, only half of the samples of the time series 'ts1' are within 'tau' of a sample of 'ts2'. Therefore, the matrix is not symmetric.
 
+
+### Acknowledgements
+
+This work was supported by the Natural Sciences and Engineering Research
+Council of Canada (NSERC grant RGPIN-2020-05252).
 
 
 ### References
