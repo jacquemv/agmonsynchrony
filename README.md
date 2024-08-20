@@ -13,7 +13,7 @@ SI, pval, Nc = synchrony_index(timeseries, tau, Nc_max_exact=1000)
 
 - **timeseries** (list or tuple of arrays): a list of two or more time series. Each time series is a sorted array of time instants.
 - **tau** (float or array): maximum delay between events of different time series for the identification of coincidences. The width of the jitter window used for computing the expected number of coincidences is set to 2*tau. If tau is an array, all values are used consecutively
-- **window** (str): if window is 'bilateral' (default), the original Agmon's method is applied; if window is 'unilateral', only coindidences occurring after (when tau > 0) or before (when tau < 0) the events of the reference time series are considered.
+- **window** (str): if window is 'bilateral' (default), the original Agmon's method is applied; if window is 'unilateral', only coindidences occurring after (when tau > 0) or before (when tau < 0) the events of the reference time series are considered (see [3]).
 - **Nc_max_exact** (int): number of coincidences above which a normal approximation (Z score) is used for computing the p-values (default: 1000, which is generally appropriate)
 
 ### Outputs
@@ -66,3 +66,5 @@ Council of Canada (NSERC grant RGPIN-2020-05252).
 1. A. Agmon. [A novel, jitter-based method for detecting and measuring spike synchrony and quantifying temporal firing precision](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3423071/). *Neural Syst. Circuits* 2012, vol. 2, article 5.
 
 2. J.-P. Longpré, S. Salavatian, E. Beaumont, J. A. Armour, J. L. Ardell, V. Jacquemet. [Measure of synchrony in the activity of intrinsic cardiac neurons](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4019347/). *Physiol Meas.* 2014, vol. 35, no. 4, pp. 549–566.
+
+3. E. Zakeri Zafarghandi, V. Jacquemet. Dyssynchrony between endo- and epicardial activation in a bilayer model of the left atrium with heterogeneous endoepicardial dissociation. *Computing in Cardiology* Sept. 2024, Karlsruhe, Germany.
